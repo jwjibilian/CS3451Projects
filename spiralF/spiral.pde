@@ -127,7 +127,7 @@ void showSpiralPattern(pt A, pt B, pt C, pt D)
       float time = (1.0 - cos((2.0*(3.14159)*(float)currentFrame)/160))/2;
       edge(spiralPt(A,F,m,a,time),spiralPt(B,F,m,a,time));
            
-           System.out.println(time);
+           //System.out.println(time);
            currentFrame +=1;
            
           

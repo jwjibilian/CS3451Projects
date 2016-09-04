@@ -26,20 +26,26 @@ void setup()               // executed once at the begining
 void draw()      // executed at each frame
   {
   if(recordingPDF) startRecordingPDF(); // starts recording graphics to make a PDF
-  
-    background(white); // clear screen and paints white background
-    pt A=P.G[0], B=P.G[1], C=P.G[2], D=P.G[3];     // crates points with more convenient names
+    pt A=P.G[0], B=P.G[1], C=P.G[2], D=P.G[3];
+    pt Z=P.G[4], Y=P.G[5], X=P.G[6], W=P.G[7]; 
+    SpiralObj spiral1 = new SpiralObj(A,B,C,D);
+    SpiralObj spiral2 = new SpiralObj(Z,Y,X,W);
     
-    pt Z=P.G[4], Y=P.G[5], X=P.G[6], W=P.G[7];    
-   pen(green,3); edge(A,B);  pen(red,3); edge(C,D); 
-   pt F = SpiralCenter1(A,B,C,D);
-
-     pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D"); showId(F,"F");
-    noFill(); 
-    pen(blue,2); show(SpiralCenter2(A,B,C,D),16);
-    pen(magenta,2); show(SpiralCenter3(A,B,C,D),20);
-    pen(cyan,2); showSpiralPattern(A,B,C,D);     
-    pen(blue,2); showSpiralThrough3Points(A,B,D); 
+    background(white); // clear screen and paints white background
+         // crates points with more convenient names
+    
+    spiral1.drawLines();
+    spiral1.drawPoints("A","B","C","D","F");
+    spiral1.drawSpiralPattern();
+    spiral1.drawSpiralThrough3Points();
+    
+    spiral2.drawLines();
+    spiral2.drawPoints("A","B","C","D","F");
+    spiral2.drawSpiralPattern();
+    spiral2.drawSpiralThrough3Points();
+    
+         
+    
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 

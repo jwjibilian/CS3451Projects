@@ -61,6 +61,13 @@ class pts
   
   void pickClosest(pt M) 
     {
+      for(int i =0; i < 15; i++){
+        System.out.println(G[i]);
+      }
+      
+      System.out.println(nv);
+      System.out.println(pv);
+      System.out.println(iv);
     pv=0; 
     for (int i=1; i<nv; i++) 
       if (d(M,G[i])<d(M,G[pv])) pv=i;

@@ -42,6 +42,10 @@ class pt
   pt label(String s, float u, float v) {fill(black); text(s, x+u, y+v); noFill(); return this; };
   pt label(String s, vec V) {fill(black); text(s, x+V.x, y+V.y); noFill(); return this; };
   pt label(String s) {label(s,5,4); return this; };
+  
+  public String toString(){
+    return x +", " + y;
+  }
 
   } // end of pt class
 
