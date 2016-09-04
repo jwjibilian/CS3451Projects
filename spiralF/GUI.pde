@@ -150,6 +150,7 @@ void mouseDragged() // executed when the mouse is dragged (while mouse buttom pr
       }
   change=true;
   }  
+   
 
 void mouseWheel(MouseEvent event) { // reads mouse wheel and uses to zoom
   float s = event.getAmount();
@@ -158,7 +159,7 @@ void mouseWheel(MouseEvent event) { // reads mouse wheel and uses to zoom
   }
 
 //**************************** text for name, title and help  ****************************
-String title ="Spiral interpolations ",            name ="Student: First LAST",
+String title ="Spiral interpolations ",            name ="Student: Gabriel Galarza and Josh Jibilian",
        subtitle = "   for Jarek Rossignac's CS3451 class in the Fall 2016",
        
        menu="?:(show/hide) help, ~/!/@:snap pdf/jpg/fif, `:(start/stop) recording, S/L:save/load, Q:quit",

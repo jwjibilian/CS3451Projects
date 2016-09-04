@@ -9,6 +9,7 @@ boolean animate=true, fill=false, timing=false;
 boolean lerp=true, slerp=true, spiral=true; // toggles to display vector interpoations
 int ms=0, me=0; // milli seconds start and end for timing
 int npts=20000; // number of points
+pt F = Mouse();
 
 //**************************** initialization ****************************
 void setup()               // executed once at the begining 
@@ -31,10 +32,10 @@ void draw()      // executed at each frame
     pt A=P.G[0], B=P.G[1], C=P.G[2], D=P.G[3];     // crates points with more convenient names
     
     pt Z=P.G[4], Y=P.G[5], X=P.G[6], W=P.G[7];    
-   pen(green,3); edge(A,B);  pen(red,3); edge(C,D); 
-   pt F = SpiralCenter1(A,B,C,D);
+    pen(green,3); edge(A,B);  pen(red,3); edge(C,D); 
+    pt F = SpiralCenter1(A,B,C,D);
 
-     pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D"); showId(F,"F");
+    pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D"); showId(F,"F");
     noFill(); 
     pen(blue,2); show(SpiralCenter2(A,B,C,D),16);
     pen(magenta,2); show(SpiralCenter3(A,B,C,D),20);
@@ -51,4 +52,10 @@ void draw()      // executed at each frame
   if(snapJPG) snapPictureToJPG();   
   change=false; // to avoid capturing movie frames when nothing happens
   }  // end of draw
+  
+  
+void mouseMoved(){
+  P.pickClosest(F);
+  P.dragPicked();
+}
   
