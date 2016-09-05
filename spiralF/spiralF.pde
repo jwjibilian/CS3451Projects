@@ -10,6 +10,7 @@ boolean lerp=true, slerp=true, spiral=true; // toggles to display vector interpo
 int ms=0, me=0; // milli seconds start and end for timing
 int npts=20000; // number of points
 pt F = Mouse();
+boolean flag = true;
 
 //**************************** initialization ****************************
 void setup()               // executed once at the begining 
@@ -26,6 +27,7 @@ void setup()               // executed once at the begining
 //**************************** display current frame ****************************
 void draw()      // executed at each frame
   {
+    
   if(recordingPDF) startRecordingPDF(); // starts recording graphics to make a PDF
   
     background(white); // clear screen and paints white background
@@ -33,7 +35,16 @@ void draw()      // executed at each frame
     
     pt Z=P.G[4], Y=P.G[5], X=P.G[6], W=P.G[7];    
     pen(green,3); edge(A,B);  pen(red,3); edge(C,D); 
+
+
+    noStroke();
+    fill(black);
+    rect(0, 0, 30, 30);
+    stroke(black);
+    strokeWeight(9);
+    
     pt F = SpiralCenter1(A,B,C,D);
+    if (flag) line(mouseX, mouseY, pmouseX, pmouseY);
 
     pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D"); showId(F,"F");
     noFill(); 
@@ -58,4 +69,20 @@ void mouseMoved(){
   P.pickClosest(F);
   P.dragPicked();
 }
+
+void mouseDragged() {
   
+  flag = true;
+  if (flag) line(mouseX, mouseY, pmouseX, pmouseY);
+    if (!keyPressed || (key=='a')|| (key=='i')) P.dragPicked();   // drag selected point with mouse
+  if (keyPressed) {
+      if (key=='.') f+=2.*float(mouseX-pmouseX)/width;  // adjust current frame   
+      if (key=='t') P.dragAll(); // move all vertices
+      if (key=='r') P.rotateAllAroundCentroid(Mouse(),Pmouse()); // turn all vertices around their center of mass
+      if (key=='z') P.scaleAllAroundCentroid(Mouse(),Pmouse()); // scale all vertices with respect to their center of mass
+      }
+  change=true;
+  }  
+void mouseReleased(){
+  flag=false;
+}

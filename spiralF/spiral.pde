@@ -125,7 +125,13 @@ void showSpiralPattern(pt A, pt B, pt C, pt D)
   pt F = SpiralCenter(a, m, A, C); 
   beginShape();
       float time = (1.0 - cos((2.0*(3.14159)*(float)currentFrame)/160))/2;
+      //edge(spiralPt(A,F,m,a,time),spiralPt(B,F,m,a,time));
+      fill(cyan);
+      show(spiralPt(A,F,m,a,time), 25); // ******i changed this area
+      show(spiralPt(B,F,m,a,time), 25);//
       edge(spiralPt(A,F,m,a,time),spiralPt(B,F,m,a,time));
+      noFill();
+      
            
            System.out.println(time);
            currentFrame +=1;

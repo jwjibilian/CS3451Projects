@@ -139,7 +139,7 @@ void mousePressed()   // executed when the mouse is pressed
   change=true;
   }
 
-void mouseDragged() // executed when the mouse is dragged (while mouse buttom pressed)
+/*void mouseDragged() // executed when the mouse is dragged (while mouse buttom pressed)
   {
   if (!keyPressed || (key=='a')|| (key=='i')) P.dragPicked();   // drag selected point with mouse
   if (keyPressed) {
@@ -149,7 +149,7 @@ void mouseDragged() // executed when the mouse is dragged (while mouse buttom pr
       if (key=='z') P.scaleAllAroundCentroid(Mouse(),Pmouse()); // scale all vertices with respect to their center of mass
       }
   change=true;
-  }  
+  }  */
    
 
 void mouseWheel(MouseEvent event) { // reads mouse wheel and uses to zoom
