@@ -4,6 +4,7 @@ class SpiralObj{
   pt C;
   pt D; 
   pt F;
+  color c;
   
   SpiralObj(pt ptA, pt ptB, pt ptC, pt ptD){
     A = ptA;
@@ -26,6 +27,10 @@ class SpiralObj{
     p.addPt(C);
     p.addPt(D);
      
+  }
+  
+  void setColor(color aColor){
+    c = aColor;
   }
   
   pt[] getPoint(){
@@ -63,15 +68,40 @@ class SpiralObj{
     return showSpiralPattern(A,B,C,D,rate);
   }
   
+   pt[] drawSpiralPattern(int rate){  
+    return drawSpiralPattern(rate, c);
+  }
+  
   pt[] drawStaticSpiralPattern(float intensity, color aColor){
     pen(aColor,2);
     return staticSpiralPattern(A,B,C,D,intensity);
+  }
+  
+  pt[] drawStaticSpiralPattern(float intensity){
+    return drawStaticSpiralPattern(intensity, c);
   }
   
   
   //draws the spiral created by this object
   void drawSpiralThrough3Points(){
    pen(blue,2); showSpiralThrough3Points(A,B,D);
+  }
+  
+  float distanceTo(pt point){
+    pt[] points = {A,B,C,D};
+       int pv=0; 
+    for (int i=1; i<points.length; i++){ 
+      if (d(point,points[i])<d(point,points[pv])) pv=i;
+    }
+    
+    return d(point,points[pv]);
+  }
+  
+  void drag(){
+    A.moveWithMouse();
+    B.moveWithMouse();
+    C.moveWithMouse();
+    D.moveWithMouse();
   }
 
 }

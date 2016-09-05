@@ -4,6 +4,7 @@ import processing.pdf.*;    // to save screen shots as PDFs, does not always wor
 
 //**************************** global variables ****************************
 pts P = new pts(); // class containing array of points, used to standardize GUI
+Spirals S = new Spirals();
 float t=0, f=0;
 boolean animate=true, fill=false, timing=false;
 boolean lerp=true, slerp=true, spiral=true; // toggles to display vector interpoations
@@ -35,46 +36,64 @@ void draw()      // executed at each frame
   SpiralObj spiral3 = new SpiralObj(E, F, G, H);
   SpiralObj spiral4 = new SpiralObj(I, J, K, L);
 
+  spiral1.setColor(white);
+  spiral2.setColor(white);
+  spiral3.setColor(white);
+  spiral4.setColor(white);
+
+  S.spi[0] = spiral1;
+  S.spi[1] = spiral2;
+  S.spi[2] = spiral3;
+  S.spi[3] = spiral4;
+
   background(white); // clear screen and paints white background
   // crates points with more convenient names
 
-  if (key=='a') {
+  if (keyPressed && key=='s') {
+    spiral1.setColor(black);
     spiral1.drawLines();
     spiral1.drawPoints("A", "B", "C", "D", "F");
     spiral1.drawSpiralThrough3Points();
 
-
+    spiral2.setColor(black);
     spiral2.drawLines();
     spiral2.drawPoints("Z", "Y", "X", "W", "G");
     spiral2.drawSpiralThrough3Points();
 
+    spiral3.setColor(black);
     spiral3.drawLines();
     spiral3.drawPoints("E", "F", "G", "H", "cc");
     spiral3.drawSpiralThrough3Points();
 
-
+    spiral4.setColor(black);
     spiral4.drawLines();
     spiral4.drawPoints("I", "J", "K", "L", "cc");
     spiral4.drawSpiralThrough3Points();
-  }
+  } 
 
 
 
 
-  pt[] startB = spiral1.drawSpiralPattern(250, white);  
 
-  pt[] startA = spiral2.drawSpiralPattern(430, white);   
+  pt[] startB = spiral1.drawSpiralPattern(250);  
 
-  pt[]  endB = spiral3.drawSpiralPattern(360, white);  
+  pt[] startA = spiral2.drawSpiralPattern(430);   
 
-  pt[] endA = spiral4.drawSpiralPattern(500, white);
+  pt[]  endB = spiral3.drawSpiralPattern(360);  
 
+  pt[] endA = spiral4.drawSpiralPattern(500);
+  
+    SpiralObj betweenSO2AndSO4 = new SpiralObj(startA[0], startA[1], endA[0], endA[1]);
+    SpiralObj betweenSO1AndSO3 = new SpiralObj(startB[0], startB[1], endB[0], endB[1]);
+     betweenSO1AndSO3.setColor(white);
+    betweenSO2AndSO4.setColor(white);
+    if (keyPressed && key=='s') {
+      betweenSO1AndSO3.setColor(black);
+      betweenSO2AndSO4.setColor(black);
+  } 
 
-  SpiralObj betweenSO2AndSO4 = new SpiralObj(startA[0], startA[1], endA[0], endA[1]);
-  pt[] sideA = betweenSO2AndSO4.drawStaticSpiralPattern(.1, white);
-
-  SpiralObj betweenSO1AndSO3 = new SpiralObj(startB[0], startB[1], endB[0], endB[1]);
-  pt[] sideB = betweenSO1AndSO3.drawStaticSpiralPattern(.1, white);
+  pt[] sideA = betweenSO2AndSO4.drawStaticSpiralPattern(.1);
+  pt[] sideB = betweenSO1AndSO3.drawStaticSpiralPattern(.1);
 
   SpiralObj[] spirals = new SpiralObj[sideA.length/2];
   pt[][] points = new pt[sideA.length/2][0];
@@ -119,4 +138,4 @@ void draw()      // executed at each frame
   if (snapTIF) snapPictureToTIF();   
   if (snapJPG) snapPictureToJPG();   
   change=false; // to avoid capturing movie frames when nothing happens
-}  // end of draw
+}  // end of draw end of draw

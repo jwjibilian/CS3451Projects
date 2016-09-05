@@ -14,6 +14,7 @@ class pts
 
   pt[] G = new pt [maxnv];                 // geometry table (vertices)
 
+
  // CREATE
 
 
