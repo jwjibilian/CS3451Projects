@@ -132,7 +132,7 @@ pt[] showSpiralPattern(pt A, pt B, pt C, pt D, int rate)
            
            //System.out.println(time);
            currentFrame +=1;
-           
+  endShape();
         
       return points;
   }
