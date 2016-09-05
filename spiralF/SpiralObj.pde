@@ -51,6 +51,11 @@ class SpiralObj{
     return showSpiralPattern(A,B,C,D,rate);
   }
   
+  void drawStaticSpiralPattern(float intensity){
+    pen(cyan,2);
+    staticSpiralPattern(A,B,C,D,intensity);
+  }
+  
   
   //draws the spiral created by this object
   void drawSpiralThrough3Points(){

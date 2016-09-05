@@ -133,20 +133,19 @@ pt[] showSpiralPattern(pt A, pt B, pt C, pt D, int rate)
            //System.out.println(time);
            currentFrame +=1;
            
-          
-          //if (!dec){
-            //time += 0.05;
-            //if (time > 0.99){
-              //dec = true;
-            //}
-          //} else{
-            //time -= 0.05;
-            //if (time < 0.05){
-              //dec = false; 
-            //}
-            
-          //}; endShape();
+        
       return points;
+  }
+  
+  void staticSpiralPattern(pt A, pt B, pt C, pt D, float intensity) 
+  {
+  float a =spiralAngle(A,B,C,D); 
+  float m =spiralScale(A,B,C,D);
+  pt F = SpiralCenter(a, m, A, C); 
+  beginShape();
+    for(float t=0.05; t<.99; t+=intensity)
+      edge(spiralPt(A,F,m,a,t),spiralPt(B,F,m,a,t));
+  endShape();
   }
  
 
