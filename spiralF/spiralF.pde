@@ -36,16 +36,18 @@ void draw()      // executed at each frame
     
     spiral1.drawLines();
     spiral1.drawPoints("A","B","C","D","F");
-    spiral1.drawSpiralPattern();
+    pt[] x = spiral1.drawSpiralPattern(120);
     spiral1.drawSpiralThrough3Points();
     
     spiral2.drawLines();
-    spiral2.drawPoints("A","B","C","D","F");
-    spiral2.drawSpiralPattern();
+    spiral2.drawPoints("Z","Y","X","W","G");
+    pt[] y = spiral2.drawSpiralPattern(440);
     spiral2.drawSpiralThrough3Points();
     
-         
-    
+    SpiralObj spiral3 = new SpiralObj(x[0], x[1], y[0], y[1]);
+    //spiral3.drawPoints("aa","bb","cc","dd","ee");
+    spiral3.drawSpiralPattern(200);
+    //spiral3.drawSpiralThrough3Points();
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 

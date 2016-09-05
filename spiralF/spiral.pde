@@ -118,14 +118,17 @@ void showSpiralThrough3Points(pt A, pt B, pt C)
 pt spiralPt(pt A, pt F, float m, float a, float t)     //  A rotated by at and scaled by s^t wrt G
   {return L(F,R(A,t*a,F),pow(m,t));}  
 
-void showSpiralPattern(pt A, pt B, pt C, pt D) 
+pt[] showSpiralPattern(pt A, pt B, pt C, pt D, int rate) 
   {
+  pt[] points= new pt[2];
   float a =spiralAngle(A,B,C,D); 
   float m =spiralScale(A,B,C,D);
   pt F = SpiralCenter(a, m, A, C); 
   beginShape();
-      float time = (1.0 - cos((2.0*(3.14159)*(float)currentFrame)/160))/2;
-      edge(spiralPt(A,F,m,a,time),spiralPt(B,F,m,a,time));
+      float time = (1.0 - cos((2.0*(3.14159)*(float)currentFrame)/rate))/2;
+      points[0] = spiralPt(A,F,m,a,time);
+      points[1] = spiralPt(B,F,m,a,time);
+      edge(points[0], points[1]);
            
            //System.out.println(time);
            currentFrame +=1;
@@ -143,6 +146,7 @@ void showSpiralPattern(pt A, pt B, pt C, pt D)
             //}
             
           //}; endShape();
+      return points;
   }
  
 

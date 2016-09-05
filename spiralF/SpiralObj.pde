@@ -27,7 +27,7 @@ class SpiralObj{
     p.addPt(D);
      
   }
-  
+  //draws all points of a spiral
   public void drawPoints(String pointA, String pointB, String pointC, String pointD, String pointF){
     //shows all ids
     
@@ -42,10 +42,17 @@ class SpiralObj{
     pen(green,3); edge(A,B);  pen(red,3); edge(C,D); 
   }
   
-  void drawSpiralPattern(){
-    pen(cyan,2); showSpiralPattern(A,B,C,D);
+  
+  /*draws a line that goes between start and end at the defined rate.
+    Returns the two points that make up that line as well in an array.
+  */
+  pt[] drawSpiralPattern(int rate){
+    pen(cyan,2);  
+    return showSpiralPattern(A,B,C,D,rate);
   }
   
+  
+  //draws the spiral created by this object
   void drawSpiralThrough3Points(){
    pen(blue,2); showSpiralThrough3Points(A,B,D);
   }
