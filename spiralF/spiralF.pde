@@ -17,7 +17,8 @@ void setup()               // executed once at the begining
   size(800, 800);            // window size
   frameRate(60);             // render 30 frames per second
   smooth();                  // turn on antialiasing
-  myFace = loadImage("data/pic.jpg");  // load image from file pic.jpg in folder data *** replace that file with your pic of your own face
+  josh = loadImage("data/josh.jpg");  // load image from file pic.jpg in folder data *** replace that file with your pic of your own face
+  gabriel = loadImage("data/Gabriel.jpg");
   P.declare(); // declares all points in P. MUST BE DONE BEFORE ADDING POINTS 
   // P.resetOnCircle(4); // sets P to have 4 points and places them in a circle on the canvas
   P.loadPts("data/pts");  // loads points form file saved with this program
