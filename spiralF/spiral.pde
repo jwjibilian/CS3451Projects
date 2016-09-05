@@ -137,15 +137,26 @@ pt[] showSpiralPattern(pt A, pt B, pt C, pt D, int rate)
       return points;
   }
   
-  void staticSpiralPattern(pt A, pt B, pt C, pt D, float intensity) 
+  pt[] staticSpiralPattern(pt A, pt B, pt C, pt D, float intensity) 
   {
   float a =spiralAngle(A,B,C,D); 
   float m =spiralScale(A,B,C,D);
   pt F = SpiralCenter(a, m, A, C); 
   beginShape();
-    for(float t=0.05; t<.99; t+=intensity)
-      edge(spiralPt(A,F,m,a,t),spiralPt(B,F,m,a,t));
+  pt[] toReturn = new pt[(int)(((0.99) / intensity) + 1)*2];
+  //System.out.println((int)(((0.99) / intensity))*2);
+  pt x=new pt(), y=new pt();
+  int i =0;
+    for(float t=0.05; t<.99; t+=intensity){
+      x = spiralPt(A,F,m,a,t);
+      y = spiralPt(B,F,m,a,t);
+      toReturn[i]=x;
+      toReturn[i+1]=y;
+      edge(x,y);
+      i +=2;
+    }
   endShape();
+  return toReturn;
   }
  
 

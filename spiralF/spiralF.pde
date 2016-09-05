@@ -14,7 +14,7 @@ int npts=20000; // number of points
 void setup()               // executed once at the begining 
   {
   size(800, 800);            // window size
-  frameRate(30);             // render 30 frames per second
+  frameRate(60);             // render 30 frames per second
   smooth();                  // turn on antialiasing
   myFace = loadImage("data/pic.jpg");  // load image from file pic.jpg in folder data *** replace that file with your pic of your own face
   P.declare(); // declares all points in P. MUST BE DONE BEFORE ADDING POINTS 
@@ -27,27 +27,62 @@ void draw()      // executed at each frame
   {
   if(recordingPDF) startRecordingPDF(); // starts recording graphics to make a PDF
     pt A=P.G[0], B=P.G[1], C=P.G[2], D=P.G[3];
-    pt Z=P.G[4], Y=P.G[5], X=P.G[6], W=P.G[7]; 
+    pt E=P.G[8], F=P.G[9], G=P.G[10], H=P.G[11];
+    pt Z=P.G[4], Y=P.G[5], X=P.G[6], W=P.G[7];
+    pt I=P.G[12], J=P.G[13], K=P.G[14], L=P.G[15];
     SpiralObj spiral1 = new SpiralObj(A,B,C,D);
     SpiralObj spiral2 = new SpiralObj(Z,Y,X,W);
+    SpiralObj spiral3 = new SpiralObj(E,F,G,H);
+    SpiralObj spiral4 = new SpiralObj(I,J,K,L);
     
     background(white); // clear screen and paints white background
          // crates points with more convenient names
     
     spiral1.drawLines();
     spiral1.drawPoints("A","B","C","D","F");
-    pt[] x = spiral1.drawSpiralPattern(120);
+    pt[] startB = spiral1.drawSpiralPattern(250);
     spiral1.drawSpiralThrough3Points();
     
     spiral2.drawLines();
     spiral2.drawPoints("Z","Y","X","W","G");
-    pt[] y = spiral2.drawSpiralPattern(440);
+    pt[] startA = spiral2.drawSpiralPattern(430);
     spiral2.drawSpiralThrough3Points();
     
-    SpiralObj spiral3 = new SpiralObj(x[0], x[1], y[0], y[1]);
+    
+    
+        spiral3.drawLines();
+    spiral3.drawPoints("E","F","G","H","cc");
+    pt[]  endB = spiral3.drawSpiralPattern(360);
+    spiral3.drawSpiralThrough3Points();
+    
+    
+        spiral4.drawLines();
+    spiral4.drawPoints("I","J","K","L","cc");
+    pt[] endA = spiral4.drawSpiralPattern(500);
+    spiral4.drawSpiralThrough3Points();
+    
+    SpiralObj betweenSO2AndSO4 = new SpiralObj(startA[0], startA[1], endA[0], endA[1]);
+    pt[] sideA = betweenSO2AndSO4.drawStaticSpiralPattern(.1);
+    
+    SpiralObj betweenSO1AndSO3 = new SpiralObj(startB[0], startB[1], endB[0], endB[1]);
+    pt[] sideB = betweenSO1AndSO3.drawStaticSpiralPattern(.1);
+    
+    SpiralObj[] spirals = new SpiralObj[sideA.length];
+    
+    for (int i = 0; i< sideA.length; i+=2){
+      spirals[i] = new SpiralObj(sideA[i], sideA[i+1], sideB[i+1], sideB[i]);
+      spirals[i].drawStaticSpiralPattern(.3);
+      //spirals[i].drawLines();
+      //spirals[i].drawSpiralThrough3Points();
+    }
+    
+    
+   
+    
+    //SpiralObj spiral3 = new SpiralObj(x[0], x[1], y[0], y[1]);
     //spiral3.drawPoints("aa","bb","cc","dd","ee");
-    //spiral3.drawSpiralPattern(200);
-    spiral3.drawStaticSpiralPattern(0.08);
+    //spiral3.drawSpiralPattern(440);
+    //spiral3.drawStaticSpiralPattern(0.08);
     //spiral3.drawSpiralThrough3Points();
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas

@@ -51,9 +51,9 @@ class SpiralObj{
     return showSpiralPattern(A,B,C,D,rate);
   }
   
-  void drawStaticSpiralPattern(float intensity){
+  pt[] drawStaticSpiralPattern(float intensity){
     pen(cyan,2);
-    staticSpiralPattern(A,B,C,D,intensity);
+    return staticSpiralPattern(A,B,C,D,intensity);
   }
   
   
