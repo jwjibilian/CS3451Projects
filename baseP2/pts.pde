@@ -19,6 +19,15 @@ class pts
 
   pts() {}
   
+<<<<<<< HEAD
+=======
+  pt[] get(){
+    return G;
+  }
+  int size(){
+    return nv;
+  }   
+>>>>>>> 6aa3e251bdf149174e2338d072aaa14dbd06f046
   void declare() {for (int i=0; i<maxnv; i++) G[i]=P(); }               // creates all points, MUST BE DONE AT INITALIZATION
 
   void empty() {nv=0; pv=0; }                                                 // empties this object

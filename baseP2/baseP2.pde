@@ -31,6 +31,32 @@ void draw()      // executed at each frame
     pen(black,3); fill(yellow); P.drawCurve(); P.IDs(); // shows polyloop with vertex labels
     stroke(red); pt G=P.Centroid(); show(G,10); // shows centroid
     pen(green,5); arrow(A,B);            // defines line style wiht (5) and color (green) and draws starting arrow from A to B
+<<<<<<< HEAD
+=======
+    
+    pt[] points = P.get();
+    int size = P.size();
+
+    
+    for(int i =0; i < size; i++){
+      pt lineStart = points[i];
+      pt lineEnd = points[(i+1)%size];
+      float test1 = det(V(A,B),V(A,lineStart));
+      float test2 = det(V(A,B),V(A,lineEnd));
+      if( (test1 < 0 && test2 >= 0) || (test1 >= 0 && test2 < 0) ){
+        
+        //X=P+tV with t = -AB:AP / AB:V
+        float time = (-det(V(lineStart,lineEnd),V(lineStart,A)))/(det(V(lineStart,lineEnd),V(A,B)));
+        //println(time);
+        pt x = P(A, time, V(A,B) );
+        
+        pen(red,1);
+        show(x);
+      }
+      
+    }
+    
+>>>>>>> 6aa3e251bdf149174e2338d072aaa14dbd06f046
 
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
