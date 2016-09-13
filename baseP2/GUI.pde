@@ -144,7 +144,20 @@ void mousePressed()   // executed when the mouse is pressed
 void mouseReleased()   // executed when the mouse is pressed
   {
   if (keyPressed && key=='s') B=Mouse(); 
-  change=true;    
+  change=true;
+  //pt one = stabP.pickClosest(A);
+      //pick closest red dot to A
+    stabP.pickClosest(A);
+    pt one = stabP.getPicked();
+    //add closest red to A on set of points P
+    //P.addPt(one);
+    
+    //pick closest red dot to B
+    stabP.pickClosest(B);
+    pt two = stabP.getPicked();
+    //add closest red to B on set of points P
+    //P.addPt(two);
+   polygons.add(new Polygon(one, two));
   }
 
 void mouseDragged() // executed when the mouse is dragged (while mouse buttom pressed)
@@ -167,7 +180,7 @@ void mouseWheel(MouseEvent event) { // reads mouse wheel and uses to zoom
   }
 
 //**************************** text for name, title and help  ****************************
-String title ="Split Polygon Puzzle",            name ="Student: First LAST",
+String title ="Split Polygon Puzzle",            name ="Student: Gabriel Galarza and Josh Jibilian",
        subtitle = "  base code for P2 for Jarek Rossignac's CS3451 class in the Fall 2016",
        
        menu="?:(show/hide) help, ~/!/@:snap pdf/jpg/fif, `:(start/stop) recording, S/L:save/load, Q:quit",

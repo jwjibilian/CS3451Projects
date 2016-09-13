@@ -19,15 +19,14 @@ class pts
 
   pts() {}
   
-<<<<<<< HEAD
-=======
+
   pt[] get(){
     return G;
   }
   int size(){
     return nv;
   }   
->>>>>>> 6aa3e251bdf149174e2338d072aaa14dbd06f046
+
   void declare() {for (int i=0; i<maxnv; i++) G[i]=P(); }               // creates all points, MUST BE DONE AT INITALIZATION
 
   void empty() {nv=0; pv=0; }                                                 // empties this object
@@ -73,6 +72,11 @@ class pts
     pv=0; 
     for (int i=1; i<nv; i++) 
       if (d(M,G[i])<d(M,G[pv])) pv=i;
+    }
+    
+  pt getPicked()
+    {
+      return G[pv];
     }
 
   void dragPicked()  // moves selected point (index pv) by the amount by which the mouse moved recently
