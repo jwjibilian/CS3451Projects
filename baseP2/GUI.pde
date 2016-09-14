@@ -157,7 +157,7 @@ void mouseReleased()   // executed when the mouse is pressed
     pt two = stabP.getPicked();
     //add closest red to B on set of points P
     //P.addPt(two);
-   polygons.add(new Polygon(one, two));
+   //polygons.add(new Polygon(one, two));
   }
 
 void mouseDragged() // executed when the mouse is dragged (while mouse buttom pressed)
