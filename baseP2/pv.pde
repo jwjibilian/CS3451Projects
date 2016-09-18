@@ -15,6 +15,14 @@ class pt
   // CREATE
   pt () {}
   pt (float px, float py) {x = px; y = py;};
+  
+  public String toString(){
+    return "x = " + x + " y = " + y;
+  }
+  
+  public pt copy(){
+    return new pt(x,y);
+  }
 
   // MODIFY
   pt setTo(float px, float py) {x = px; y = py; return this;};  
