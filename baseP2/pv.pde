@@ -25,6 +25,8 @@ class pt
   }
 
   // MODIFY
+  float getX() {return this.x;}
+  float getY() {return this.y;}
   pt setTo(float px, float py) {x = px; y = py; return this;};  
   pt setTo(pt P) {x = P.x; y = P.y; return this;}; 
   pt setToMouse() { x = mouseX; y = mouseY;  return this;}; 

@@ -38,7 +38,11 @@ void draw()      // executed at each frame
   color c = red;
   for (Polygon thing : polygons) {
     pen(black, 3); 
-    fill(yellow);
+    if (thing.isMouseInside()) {    //checking if mouse position is inside polygon, if so then turn blue
+      fill(blue);
+    } else {
+      fill(yellow);
+    }
     thing.draw();
     thing.showIds();
     if(thing.stabedPts(A,B) !=null){
