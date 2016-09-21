@@ -65,10 +65,9 @@ public class Polygon {
       //println("close too a " + toReturn[1]); 
       //println("close too B " + toReturn[3]); 
       //println("on is" + on);
-      pen(green,5);
+      pen(green, 5);
       show(toReturn[1], 5);
       show(toReturn[3], 5);
-    
     }
     return toReturn;
   }
@@ -83,49 +82,49 @@ public class Polygon {
     float time = (-det(V(lineStart, lineEnd), V(lineStart, A)))/(det(V(lineStart, lineEnd), V(A, B)));
     return time;
   }
-  
+
   public boolean isMouseInside() {
     int i;
-            double angle = 0;
-            double px1, px2, py1, py2;
-            int n = p.size();
-            pt mouse = Mouse();
-            pt[] points = p.get();
-            for (i = 0; i < n; i++)
-            {
-                px1 = points[i].getX() - mouse.getX();
-                py1 = points[i].getY() - mouse.getY();
-                px2 = points[(i+1)%n].getX() - mouse.getX(); 
-                py2 = points[(i+1)%n].getY() - mouse.getY();
-                //p1.X = polygon._vertexes[i].X - point.X;
-                //p1.Y = polygon._vertexes[i].Y - point.Y;
-                //p2.X = polygon._vertexes[(i + 1) % n].X - point.X;
-                //p2.Y = polygon._vertexes[(i + 1) % n].Y - point.Y;
-                angle += getAngle(px1, py1, px2, py2);
-            }
- 
-            if (Math.abs(angle) < Math.PI)
-                return false;
-            else
-                return true;
+    double angle = 0;
+    double px1, px2, py1, py2;
+    int n = p.size();
+    pt mouse = Mouse();
+    pt[] points = p.get();
+    for (i = 0; i < n; i++)
+    {
+      px1 = points[i].getX() - mouse.getX();
+      py1 = points[i].getY() - mouse.getY();
+      px2 = points[(i+1)%n].getX() - mouse.getX(); 
+      py2 = points[(i+1)%n].getY() - mouse.getY();
+      //p1.X = polygon._vertexes[i].X - point.X;
+      //p1.Y = polygon._vertexes[i].Y - point.Y;
+      //p2.X = polygon._vertexes[(i + 1) % n].X - point.X;
+      //p2.Y = polygon._vertexes[(i + 1) % n].Y - point.Y;
+      angle += getAngle(px1, py1, px2, py2);
+    }
+
+    if (Math.abs(angle) < Math.PI)
+      return false;
+    else
+      return true;
   }
-  
+
   double getAngle(double x1, double y1, double x2, double y2)
-        {
-            double twoPI = 6.283185307179586476925287; // PI*2
-            double dtheta, theta1, theta2;
- 
-            theta1 = Math.atan2(y1, x1);
-            theta2 = Math.atan2(y2, x2);
-            dtheta = theta2 - theta1;
-            while (dtheta > Math.PI)
-                dtheta -= twoPI;
-            while (dtheta < -Math.PI)
-                dtheta += twoPI;
- 
-            return (dtheta);
-        }
-  
+  {
+    double twoPI = 6.283185307179586476925287; // PI*2
+    double dtheta, theta1, theta2;
+
+    theta1 = Math.atan2(y1, x1);
+    theta2 = Math.atan2(y2, x2);
+    dtheta = theta2 - theta1;
+    while (dtheta > Math.PI)
+      dtheta -= twoPI;
+    while (dtheta < -Math.PI)
+      dtheta += twoPI;
+
+    return (dtheta);
+  }
+
   public Polygon cutt(pt A, pt B) {
     println("go");
     pt[] cuttOn = stabedPts(A, B);
@@ -200,6 +199,22 @@ public class Polygon {
     return new Polygon(newPoly); //returns the new polygon
   }
 
+  public pt getCentroid() {
+    return p.Centroid();
+  }
+
+  public void drag() {
+    
+    p.dragAll();
+  }
+  
+  public void rotateAllAroundCentroid(pt P, pt Q){
+    p.rotateAllAroundCentroid(P, Q);
+  }
+
+  public void scaleAllAroundCentroid(pt M, pt P){
+    p.scaleAllAroundCentroid(M, P);
+  }
 
   //int sizeA = 0;
   //int sizeB = 0;

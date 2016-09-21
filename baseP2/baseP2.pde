@@ -13,6 +13,7 @@ int ms=0, me=0; // milli seconds start and end for timing
 int npts=20000; // number of points
 pt A=P(100, 100), B=P(300, 300);
 Polygon x = new Polygon(P);
+Polygon selected;
 
 
 
@@ -48,13 +49,15 @@ void draw()      // executed at each frame
     if(thing.stabedPts(A,B) !=null){
        c = green;
     }
+    pen(red, 6);
+    pt G=thing.getCentroid();
+    show(G, 10); // shows centroid
   }
   pen(c,6);
   arrow(A,B);
 
   stroke(red); 
-  pt G=P.Centroid(); 
-  show(G, 10); // shows centroid
+
 
 
 

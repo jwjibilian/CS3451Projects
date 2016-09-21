@@ -1,6 +1,7 @@
 //**************************** user actions ****************************
 void keyPressed()  // executed each time a key is pressed: sets the Boolean "keyPressed" till it is released   
   // sets  char "key" state variables till another key is pressed or released
+
 {
 
   if (key=='~') recordingPDF=true; // to snap an image of the canvas and save as zoomable a PDF, compact and great quality, but does not always work
@@ -149,6 +150,13 @@ void mousePressed()   // executed when the mouse is pressed
     if (key=='a')  P.addPt(Mouse()); // appends vertex after the last one
     if (key=='i')  P.insertClosestProjection(Mouse()); // inserts vertex at closest projection of mouse
     if (key=='d')  P.deletePickedPt(); // deletes vertex closeset to mouse
+    if (key=='b' || key == 'n' || key == 'm') {
+      for (Polygon thing : polygons) {
+        if (thing.isMouseInside()) {
+          selected = thing;
+        }
+      }
+    }
   } 
   if (keyPressed && key=='s') {
     A=Mouse(); 
@@ -169,7 +177,8 @@ void mouseReleased()   // executed when the mouse is pressed
     if (toAdd != null) {
       polygons.add(toAdd);
     }
-  } 
+  }
+  selected = null;
   change=true;
   //pt one = stabP.pickClosest(A);
   //pick closest red dot to A
@@ -194,6 +203,15 @@ void mouseDragged() // executed when the mouse is dragged (while mouse buttom pr
     if (key=='t') P.dragAll(); // move all vertices
     if (key=='r') P.rotateAllAroundCentroid(Mouse(), Pmouse()); // turn all vertices around their center of mass
     if (key=='z') P.scaleAllAroundCentroid(Mouse(), Pmouse()); // scale all vertices with respect to their center of mass
+    if (key=='n' && selected != null) {
+      selected.drag();
+    }
+    if (key=='b'&& selected != null) {
+      selected.rotateAllAroundCentroid(Mouse(), Pmouse());
+    }
+    if (key=='m'&& selected != null) {
+      selected.scaleAllAroundCentroid(Mouse(), Pmouse());
+    }
   }
   if (keyPressed && key=='s') B=Mouse(); 
   change=true;
