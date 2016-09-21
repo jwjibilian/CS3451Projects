@@ -18,6 +18,8 @@ Polygon selected, solution;
 GameStates currentState = GameStates.CREATION;
 String stateStr = "Please create a polygon.";
 
+Polygon moving, moveToHere;
+
 
 
 
@@ -52,8 +54,8 @@ void draw()      // executed at each frame
 
     if (solution != null) {
       pen(black, 3);
-      fill(red);
-      solution.draw();
+      //fill(red);
+      solution.draw(red);
     }
     for (Polygon thing : polygons) {
       pen(black, 3); 
@@ -65,16 +67,15 @@ void draw()      // executed at each frame
       thing.draw();
       thing.showIds();
       if (currentState == GameStates.CREATION && thing.stabedPts(A, B) !=null) {
-     
-          c = green;
- 
+
+        c = green;
       }
       pen(red, 6);
       pt G=thing.getCentroid();
       show(G, 10); // shows centroid
     }
 
-    if ( currentState == GameStates.CREATION) {
+    if (currentState == GameStates.CREATION) {
       pen(c, 6);
       arrow(A, B);
     }
@@ -83,12 +84,12 @@ void draw()      // executed at each frame
   } else if (currentState == GameStates.PLAYER) {
     if (solution != null) {
       pen(black, 3);
-      fill(red);
-      solution.draw();
+      //fill(red);
+      solution.draw(red);
     }
     for (Polygon thing : polygons) {
       pen(black, 3); 
-      if (thing.isMouseInside()) {    //checking if mouse position is inside polygon, if so then turn blue
+      if (moving != null && thing == moving) {
         fill(blue);
       } else {
         fill(yellow);
@@ -99,6 +100,61 @@ void draw()      // executed at each frame
       pt G=thing.getCentroid();
       show(G, 10); // shows centroid
     }
+
+    if (moving != null) {
+      for (Polygon thing : ghosts) {
+        if (thing.isMouseInside() || thing == moveToHere) {
+          fill(blue);
+          pen(black, 3);
+          thing.draw();
+        }
+      }
+    }
+
+    if (moving != null && moveToHere != null) {
+      currentState = GameStates.MOVING;
+      pt[] end = moveToHere.get();
+      pt[] start = moving.get();
+      moving.setSpiral(end[0].copy(), end[1].copy(), start[0].copy(), start[1].copy());
+    }
+  } else if (currentState == GameStates.MOVING) {
+
+    if (solution != null) {
+      pen(black, 3);
+      //fill(red);
+      solution.draw(red);
+    }
+    for (Polygon thing : polygons) {
+      pen(black, 3); 
+      if (moving != null && thing == moving) {
+        fill(blue);
+      } else {
+        fill(yellow);
+      }
+      thing.draw();
+      thing.showIds();
+      pen(red, 6);
+      //pt G=thing.getCentroid();
+      //show(G, 10); // shows centroid
+    }
+
+    if (moving != null) {
+      for (Polygon thing : ghosts) {
+        if (thing.isMouseInside() || thing == moveToHere) {
+          fill(blue);
+          pen(black, 3);
+          thing.draw();
+        }
+      }
+    }
+    
+    pt[] start = moving.get();
+    moving.spiralMove(start[0], start[1]);
+    
+    
+    
+    
+    
   }
 
 
@@ -122,3 +178,25 @@ void draw()      // executed at each frame
   if (snapJPG) snapPictureToJPG();   
   change=false; // to avoid capturing movie frames when nothing happens
 }  // end of draw
+
+
+void drawPolygons() {
+  if (solution != null) {
+    pen(black, 3);
+    fill(red);
+    solution.draw();
+  }
+  for (Polygon thing : polygons) {
+    pen(black, 3); 
+    if (thing.isMouseInside()) {    //checking if mouse position is inside polygon, if so then turn blue
+      fill(blue);
+    } else {
+      fill(yellow);
+    }
+    thing.draw();
+    thing.showIds();
+    pen(red, 6);
+    pt G=thing.getCentroid();
+    show(G, 10); // shows centroid
+  }
+}

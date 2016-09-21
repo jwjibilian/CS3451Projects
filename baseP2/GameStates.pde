@@ -1,4 +1,4 @@
 public enum GameStates{
-  CREATION, PUZZLE, PLAYER;
+  CREATION, PUZZLE, PLAYER, MOVING;
 
 }

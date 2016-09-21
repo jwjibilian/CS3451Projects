@@ -48,9 +48,9 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
       }
       stateStr = "Please move the pices around";
       currentState = GameStates.PUZZLE;
-    } else if(currentState == GameStates.PUZZLE){
+    } else if (currentState == GameStates.PUZZLE) {
       currentState = GameStates.PLAYER;
-    
+      stateStr = "Solve this puzzle.";
     }
   }
   if (key=='k') ;   
@@ -156,6 +156,21 @@ void mousePressed()   // executed when the mouse is pressed
 {
   if (!keyPressed || (key=='a') || (key=='i') || (key=='x'))  
     P.pickClosest(Mouse()); // pick vertex closest to mouse: sets pv ("picked vertex") in pts
+  if (!keyPressed && currentState == GameStates.PLAYER) {
+    if (moving == null) {
+      for (Polygon thing : polygons) {
+        if (thing.isMouseInside()) {
+          moving = thing;
+        }
+      }
+    } else {
+      for (Polygon thing : ghosts) {
+        if (thing.isMouseInside()) {
+          moveToHere = thing;
+        }
+      }
+    }
+  }
   if (keyPressed) 
   {
     if (key=='a')  P.addPt(Mouse()); // appends vertex after the last one
@@ -167,13 +182,13 @@ void mousePressed()   // executed when the mouse is pressed
           selected = thing;
         }
       }
-    }
-  } 
-  if (keyPressed && key=='s') {
-    A=Mouse(); 
-    B=Mouse();
-  } 
-  change=true;
+    } else  
+    if (keyPressed && key=='s') {
+      A=Mouse(); 
+      B=Mouse();
+    } 
+    change=true;
+  }
 }
 
 void mouseReleased()   // executed when the mouse is pressed

@@ -1,12 +1,21 @@
 
-
-
 public class Polygon {
   /**points that define polygon**/
-  private pts p; 
+  private pts p;
+  private color polyCol;
+  SpiralObj spiralingOn;
 
   public Polygon(pts points) {
     p = points;
+    polyCol = yellow;
+  }
+  public Polygon(pts points, color c) {
+    p = points;
+    polyCol = c;
+  }
+
+  public void setColor(color c) {
+    polyCol = c;
   }
 
   /*returns pt array ifn this format
@@ -74,6 +83,15 @@ public class Polygon {
   public void draw() {
     p.drawCurve();
   }
+  public void draw(color col) {
+    fill(col);
+    p.drawCurve();
+  }
+
+  public void drawStoredColor() {
+    p.drawCurve();
+  }
+
   public void showIds() {
     p.IDs();
   }
@@ -126,12 +144,12 @@ public class Polygon {
   }
 
   public Polygon cutt(pt A, pt B) {
-    
-    if(solution == null){
+
+    if (solution == null) {
       solution = this.copy();
     }
-    
-    
+
+
     println("go");
     pt[] cuttOn = stabedPts(A, B);
     if (cuttOn == null) {
@@ -205,26 +223,55 @@ public class Polygon {
     return new Polygon(newPoly); //returns the new polygon
   }
 
+
+
   public pt getCentroid() {
     return p.Centroid();
   }
 
   public void drag() {
-    
+
     p.dragAll();
   }
-  
-  public void rotateAllAroundCentroid(pt P, pt Q){
+
+  public void rotateAllAroundCentroid(pt P, pt Q) {
     p.rotateAllAroundCentroid(P, Q);
   }
 
-  public void scaleAllAroundCentroid(pt M, pt P){
+  public void scaleAllAroundCentroid(pt M, pt P) {
+    p.scaleAllAroundCentroid(M, P);
+  }
+
+  public Polygon copy() {
+    pts newP = p.copy();
+
+    return new Polygon(newP, yellow);
+  }
+
+  public pt[] get() {
+    return p.get();
+  }
+
+  public void rotate(float a) {
+    p.rotateAllAroundCentroid(a);
+  }
+
+  public void moveAll(vec V) {
+    p.moveAll(V);
+  }
+
+  public void setSpiral(pt end1, pt end2, pt start1, pt start2) {
+    spiralingOn = new SpiralObj(start1, start2, end1, end2);
+  }
+
+  public void scaleOnCentroid(pt M, pt P) {  // scales all points wrt centroid G using distance change |GP| to |GM|
     p.scaleAllAroundCentroid(M, P);
   }
   
-  public Polygon copy(){
-    pts newP = p.copy();
-    return new Polygon(newP);
+
+  public void spiralMove(pt start1, pt start2) {
+
+    spiralingOn.movePolygon(250, cyan, this, start1, start2);
   }
 
   //int sizeA = 0;
