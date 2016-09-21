@@ -19,7 +19,18 @@ class pts
 
   pts() {}
   
-
+  
+  public pts copy(){
+    
+    
+    pts toReturn = new pts();
+    toReturn.declare();
+    for (int i = 0; i < nv; i++){
+      toReturn.addPt(G[i]);
+    }
+    return toReturn;
+    
+  }
   pt[] get(){
     return G;
   }

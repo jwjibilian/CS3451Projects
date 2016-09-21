@@ -126,6 +126,12 @@ public class Polygon {
   }
 
   public Polygon cutt(pt A, pt B) {
+    
+    if(solution == null){
+      solution = this.copy();
+    }
+    
+    
     println("go");
     pt[] cuttOn = stabedPts(A, B);
     if (cuttOn == null) {
@@ -214,6 +220,11 @@ public class Polygon {
 
   public void scaleAllAroundCentroid(pt M, pt P){
     p.scaleAllAroundCentroid(M, P);
+  }
+  
+  public Polygon copy(){
+    pts newP = p.copy();
+    return new Polygon(newP);
   }
 
   //int sizeA = 0;

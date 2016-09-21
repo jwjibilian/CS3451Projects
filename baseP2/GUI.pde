@@ -41,7 +41,18 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
   if (key=='g') ; 
   if (key=='h') ;
   if (key=='i') ; 
-  if (key=='j') ;
+  if (key=='j') {
+    if (currentState == GameStates.CREATION) {
+      for (Polygon thing : polygons) {
+        ghosts.add(thing.copy());
+      }
+      stateStr = "Please move the pices around";
+      currentState = GameStates.PUZZLE;
+    } else if(currentState == GameStates.PUZZLE){
+      currentState = GameStates.PLAYER;
+    
+    }
+  }
   if (key=='k') ;   
   if (key=='l') ;
   if (key=='m') ;
@@ -150,7 +161,7 @@ void mousePressed()   // executed when the mouse is pressed
     if (key=='a')  P.addPt(Mouse()); // appends vertex after the last one
     if (key=='i')  P.insertClosestProjection(Mouse()); // inserts vertex at closest projection of mouse
     if (key=='d')  P.deletePickedPt(); // deletes vertex closeset to mouse
-    if (key=='b' || key == 'n' || key == 'm') {
+    if (key=='b' || key == 'n' || key == 'm' && currentState == GameStates.PUZZLE) {
       for (Polygon thing : polygons) {
         if (thing.isMouseInside()) {
           selected = thing;
@@ -167,7 +178,7 @@ void mousePressed()   // executed when the mouse is pressed
 
 void mouseReleased()   // executed when the mouse is pressed
 {
-  if (keyPressed && key=='s') { 
+  if (keyPressed && key=='s' && currentState == GameStates.CREATION) { 
     B=Mouse();
     Polygon toAdd = null;
 
@@ -203,14 +214,16 @@ void mouseDragged() // executed when the mouse is dragged (while mouse buttom pr
     if (key=='t') P.dragAll(); // move all vertices
     if (key=='r') P.rotateAllAroundCentroid(Mouse(), Pmouse()); // turn all vertices around their center of mass
     if (key=='z') P.scaleAllAroundCentroid(Mouse(), Pmouse()); // scale all vertices with respect to their center of mass
-    if (key=='n' && selected != null) {
-      selected.drag();
-    }
-    if (key=='b'&& selected != null) {
-      selected.rotateAllAroundCentroid(Mouse(), Pmouse());
-    }
-    if (key=='m'&& selected != null) {
-      selected.scaleAllAroundCentroid(Mouse(), Pmouse());
+    if (currentState == GameStates.PUZZLE) {
+      if (key=='n' && selected != null) {
+        selected.drag();
+      }
+      if (key=='b'&& selected != null) {
+        selected.rotateAllAroundCentroid(Mouse(), Pmouse());
+      }
+      if (key=='m'&& selected != null) {
+        selected.scaleAllAroundCentroid(Mouse(), Pmouse());
+      }
     }
   }
   if (keyPressed && key=='s') B=Mouse(); 
