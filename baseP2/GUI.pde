@@ -46,11 +46,11 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
       for (Polygon thing : polygons) {
         ghosts.add(thing.copy());
       }
-      stateStr = "Please move the pices around";
+      stateStr = "Hold 'b' to rotate, 'n' to move and 'm' to scale, then click on the piece you want to manipulate.";
       currentState = GameStates.PUZZLE;
     } else if (currentState == GameStates.PUZZLE) {
       currentState = GameStates.PLAYER;
-      stateStr = "Solve this puzzle.";
+      stateStr = "To solve click on a pice then a place on the red polygon.";
     }
   }
   if (key=='k') ;   

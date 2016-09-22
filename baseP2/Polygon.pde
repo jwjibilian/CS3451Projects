@@ -126,6 +126,32 @@ public class Polygon {
     else
       return true;
   }
+  
+   public boolean isPtInside(pt check) {
+    int i;
+    double angle = 0;
+    double px1, px2, py1, py2;
+    int n = p.size();
+    pt mouse = check;
+    pt[] points = p.get();
+    for (i = 0; i < n; i++)
+    {
+      px1 = points[i].getX() - mouse.getX();
+      py1 = points[i].getY() - mouse.getY();
+      px2 = points[(i+1)%n].getX() - mouse.getX(); 
+      py2 = points[(i+1)%n].getY() - mouse.getY();
+      //p1.X = polygon._vertexes[i].X - point.X;
+      //p1.Y = polygon._vertexes[i].Y - point.Y;
+      //p2.X = polygon._vertexes[(i + 1) % n].X - point.X;
+      //p2.Y = polygon._vertexes[(i + 1) % n].Y - point.Y;
+      angle += getAngle(px1, py1, px2, py2);
+    }
+
+    if (Math.abs(angle) < Math.PI + 2)
+      return false;
+    else
+      return true;
+  }
 
   double getAngle(double x1, double y1, double x2, double y2)
   {
@@ -267,12 +293,30 @@ public class Polygon {
   public void scaleOnCentroid(pt M, pt P) {  // scales all points wrt centroid G using distance change |GP| to |GM|
     p.scaleAllAroundCentroid(M, P);
   }
-  
+
 
   public void spiralMove(pt start1, pt start2) {
 
     spiralingOn.movePolygon(250, cyan, this, start1, start2);
   }
+  
+  public float getTime(){
+    return spiralingOn.getTime();
+  }
+  
+    public void setTime(float t){
+    spiralingOn.setTime(t);
+  }
+  
+  public pt[] getStart(){
+    return spiralingOn.getStart();
+  }
+  
+  public void setDec(boolean b){
+    spiralingOn.setDec(b);
+  }
+
+
 
   //int sizeA = 0;
   //int sizeB = 0;

@@ -5,6 +5,9 @@ class SpiralObj {
   pt D; 
   pt F;
   color c;
+  private float t;
+  private int currentFrame = 0;
+  private boolean dec = false;
 
   SpiralObj(pt ptA, pt ptB, pt ptC, pt ptD) {
     A = ptA;
@@ -12,6 +15,7 @@ class SpiralObj {
     C = ptC;
     D = ptD;
     F = SpiralCenter1(A, B, C, D);
+    t=0;
   }
 
   SpiralObj(pt ptA, pt ptB, pt ptC, pt ptD, pts p) {
@@ -20,22 +24,45 @@ class SpiralObj {
     C = ptC;
     D = ptD;
     F = SpiralCenter1(A, B, C, D);
-
+    t=0;
     p.addPt(A);
     p.addPt(B);
     p.addPt(C);
     p.addPt(D);
   }
-
+  
+  public pt[] getStart(){
+    pt[] toReturn = {A,B};
+    return toReturn;
+  }
+  public float getTime() {
+    return t;
+  }
+  public void setDec(boolean b){
+    dec = b;
+  }
+  public void setTime(float t){
+    this.t = t;
+  }
   public void movePolygon(int rate, color c, Polygon poly, pt start1, pt start2) {
-    //pt centroid = poly.getCentroid();
-    //float xCord = det(V(start1, centroid), V(start1, start2))/dot(V(start1, start2), V(start1, start2));
+    pt centroid = poly.getCentroid();
+    float xCord = dot(V(start1, centroid), V(start1, start2))/dot(V(start1, start2), V(start1, start2));
+    float yCord = dot(V(start1, centroid), R(V(start1, start2)))/dot(R(V(start1, start2)), R(V(start1, start2)));
+    //println(xCord +" " + yCord);
     //println("xCord: " + xCord);
-    pt[] movingTo = this.drawSpiralPattern(rate, c);
-    this.drawLines();
-    this.drawStaticSpiralPattern(5, cyan);
-    poly.rotate(angle(V(movingTo[0], movingTo[1]), V(start1, start2)));
-    poly.moveAll(V(start1, movingTo[0]));
+    pt[] movingTo = this.drawSpiralPattern(rate);
+    pt newCentroid = movingTo[0];
+    newCentroid = P(newCentroid, xCord, V(movingTo[0], movingTo[1]));
+    newCentroid = P(newCentroid, yCord, R(V(movingTo[0], movingTo[1])));
+    //this.drawLines();
+    //this.drawStaticSpiralPattern(5, cyan);
+    float angle = angle(V(movingTo[0], movingTo[1]), V(start1, start2));
+    if (angle > 0.0001 || angle < -0.0001) {
+      //print("angle");
+      poly.rotate(angle);
+    }
+    poly.moveAll(V(centroid, newCentroid));
+    poly.scaleAllAroundCentroid(movingTo[0], start1);
   }
 
   void setColor(color aColor) {
@@ -75,6 +102,35 @@ class SpiralObj {
     edge(A, B);  
     pen(red, 3); 
     edge(C, D);
+  }
+
+  pt[] showSpiralPattern(pt A, pt B, pt C, pt D, int rate) 
+  {
+    pt[] points= new pt[2];
+    float a =spiralAngle(A, B, C, D); 
+    float m =spiralScale(A, B, C, D);
+    pt F = SpiralCenter(a, m, A, C); 
+    beginShape();
+    float time = (1.0 - cos((2.0*(3.14159)*(float)currentFrame)/rate))/2;
+    if (a < 0.00001 && a > -0.00001) {
+      points[0] = A.copy().add(V(A, C).scaleBy(time));
+      points[1] = B.copy().add(V(B, D).scaleBy(time));
+    } else {
+      points[0] = spiralPt(A, F, m, a, time);
+      points[1] = spiralPt(B, F, m, a, time);
+    }
+    //edge(points[0], points[1]);
+
+    //System.out.println(time);
+    if (!dec){
+      currentFrame +=1;
+    } else {
+      currentFrame -= 1;
+    }
+    
+    endShape();
+
+    return points;
   }
 
 

@@ -2,7 +2,7 @@
 // Author: Jarek ROSSIGNAC, last edited on August, 2016 
 
 
-PImage myFace; // picture of author's face, should be: data/pic.jpg in sketch folder
+PImage josh, gabriel; // picture of author's face, should be: data/pic.jpg in sketch folder
 
 // ************************************************************************ COLORS 
 color black=#000000, white=#FFFFFF, // set more colors using Menu >  Tools > Color Selector
@@ -64,7 +64,8 @@ void displayHeader()  // Displays title and authors face on screen
     {
     scribeHeader(title,0);       scribeHeaderRight(name); 
     scribeHeader(subtitle,1);
-    image(myFace, width-myFace.width/2,25,myFace.width/2,myFace.height/2); 
+    image(josh, width-josh.width/2,25,josh.width/2,josh.height/2); 
+    image(gabriel,width-(gabriel.width/2)*2,25,gabriel.width/2,gabriel.height/2);
     }
 void displayFooter()  // Displays help text at the bottom
     {
@@ -73,8 +74,8 @@ void displayFooter()  // Displays help text at the bottom
     }
     
 void displayState(){
-   textSize(50);
-   scribeState(stateStr,3);
-   textSize(15);
+   textSize(12);
+   scribeState(stateStr,2);
+   textSize(12);
 
 }
